@@ -29,7 +29,7 @@ sequence createSequence()
 
   for (int i = 0; i < 28; i++)
     {
-      randNum = rand() % 27;
+      randNum = rand() % 28;
       seq.content[i] = symbols[randNum];
     }
   return seq;
