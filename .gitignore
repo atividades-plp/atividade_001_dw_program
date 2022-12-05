@@ -1,0 +1,5 @@
+.vscode
+*.exe
+*.class
+*.out
+__pychache__
