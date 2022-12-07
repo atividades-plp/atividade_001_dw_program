@@ -47,7 +47,7 @@ public class DkMain {
     }
 
     public static void printGeneration(int generation, String textCopy){
-        System.out.println("Generation " + generation + " (score of "+getScoreOf(textCopy)+"): " + textCopy );
+        System.out.println("GENERATION " + generation + " (SCORE "+getScoreOf(textCopy)+"): " + textCopy );
     }
 
     public static void main(String[] args) {

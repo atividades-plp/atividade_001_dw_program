@@ -1,16 +1,15 @@
 import random
 
+alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
+text ="METHINKS IT IS LIKE A WEASEL"
 
-symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
-targPharse ="METHINKS IT IS LIKE A WEASEL"
-
-symbols.split(" ")
-targPharse.split(" ")
+alphabet.split(" ")
+text.split(" ")
 
 
 def Sort_Char(alphabet):
-    randNum = random.randint(0,len(alphabet)-1)
-    return alphabet[randNum]
+    random_number = random.randint(0,len(alphabet)-1)
+    return alphabet[random_number]
 
 
 def Sort_Initial_String(targPharse,  alphabet):
@@ -46,24 +45,25 @@ def getScore(text_Copy, targPharse):
 
 
 def printGeneration(text_Copy, generation):
+    print("GENERATION {} (SCORE {}): ".format(generation,
+                                 getScore(text_Copy, text)), end="")
     for writing in text_Copy:
         print(writing, end="")
-    print(" In Generation {} and Score of {}\n".format(generation,
-                                 getScore(text_Copy, targPharse)))
+    print()
 
 
 def Main():
-    current_Copy = Sort_Initial_String(targPharse, symbols)
+    current_Copy = Sort_Initial_String(text, alphabet)
     generation = 0
     num_generations = 100
     copies = []
-    while(getScore(current_Copy, targPharse) < len(targPharse)):
+    while(getScore(current_Copy, text) < len(text)):
         copies = Copy_Of(current_Copy, num_generations)
 
         for copy in copies:
-            resort_Copy = Resort_String(targPharse, symbols, copy)
-            if(getScore(resort_Copy, targPharse) > getScore(current_Copy,
-                                                             targPharse)):
+            resort_Copy = Resort_String(text, alphabet, copy)
+            if(getScore(resort_Copy, text) > getScore(current_Copy,
+                                                             text)):
                 current_Copy = resort_Copy
                 
 
