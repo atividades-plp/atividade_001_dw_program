@@ -3,18 +3,18 @@ import java.util.List;
 import java.util.Random;
 
 public class DkMain {
-    private static final String text = "METHINKS IT IS LIKE A WEASEL";
-    private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    private static final String TEXT = "METHINKS IT IS LIKE A WEASEL";
+    private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    private static final int PROBABILITY = 5;
 
     public static char sortChar(){
-        int alphabetLength = alphabet.length();
-        Random random = new Random();
-        int charIndex = random.nextInt(alphabetLength);
-        return alphabet.toCharArray()[charIndex];
+        int alphabetLength = ALPHABET.length();
+        int charIndex = new Random().nextInt(alphabetLength);
+        return ALPHABET.toCharArray()[charIndex];
     }
 
     public static String sortInitialString(){
-        int textLength = text.length();
+        int textLength = TEXT.length();
         StringBuilder sortedString = new StringBuilder();
         for(int index = 0; index < textLength; index++)
             sortedString.append(sortChar());
@@ -23,11 +23,11 @@ public class DkMain {
 
     public static String resortString(String textCopy){
         StringBuilder newTextCopy = new StringBuilder();
-        for(int index = 0; index < text.length(); index++){
-            if(textCopy.toCharArray()[index] == text.toCharArray()[index])
-                newTextCopy.append(textCopy.toCharArray()[index]);
-            else
-                newTextCopy.append(sortChar());
+        for(int index = 0; index < TEXT.length(); index++){
+                if(textCopy.toCharArray()[index] == TEXT.toCharArray()[index] || !has2BeSorted())
+                    newTextCopy.append(textCopy.toCharArray()[index]);
+                else
+                    newTextCopy.append(sortChar());
         }
         return newTextCopy.toString();
     }
@@ -41,8 +41,8 @@ public class DkMain {
 
     public static int getScoreOf(String textCopy){
         int score = 0;
-        for(int index = 0; index<text.length(); index++)
-            if(textCopy.toCharArray()[index] == text.toCharArray()[index]) score++;
+        for(int index = 0; index<TEXT.length(); index++)
+            if(textCopy.toCharArray()[index] == TEXT.toCharArray()[index]) score++;
         return score;
     }
 
@@ -50,10 +50,15 @@ public class DkMain {
         System.out.println("GENERATION " + generation + " (SCORE "+getScoreOf(textCopy)+"): " + textCopy );
     }
 
+    public static boolean has2BeSorted(){
+        int probability = new Random().nextInt(99);
+        return probability <= PROBABILITY - 1;
+    }
+
     public static void main(String[] args) {
         String currentCopy = sortInitialString();
         int generation = 0;
-        while(getScoreOf(currentCopy) < text.length()){
+        while(getScoreOf(currentCopy) < TEXT.length()){
             List<String> copies = copyOf(currentCopy, 100);
             for(String copy: copies){
                 String resortedCopy = resortString(copy);

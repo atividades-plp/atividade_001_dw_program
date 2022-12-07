@@ -19,10 +19,14 @@ def Sort_Initial_String(targPharse,  alphabet):
     return sortedString
 
 
+def Has_2_Be_Sorted():
+    number = random.randint(1,100)
+    return number <= 5
+
 def Resort_String(targPharse, alphabet, textCopy):
     newTextCopy = []
     for j in range(len(targPharse)):
-        if textCopy[j] == targPharse[j]:
+        if textCopy[j] == targPharse[j] or not Has_2_Be_Sorted():
             newTextCopy.append(textCopy[j])
         else:
             newTextCopy.append(Sort_Char(alphabet))
