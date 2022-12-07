@@ -1,76 +1,89 @@
 import random
 
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
-text ="METHINKS IT IS LIKE A WEASEL"
+targ_text ="METHINKS IT IS LIKE A WEASEL"
 
 alphabet.split(" ")
-text.split(" ")
+targ_text.split(" ")
 
 
-def Sort_Char(alphabet):
+def sort_char(alphabet):
     random_number = random.randint(0,len(alphabet)-1)
     return alphabet[random_number]
 
 
-def Sort_Initial_String(targPharse,  alphabet):
+def sort_initial_string(targPharse,  alphabet):
     sortedString = []
+
     for i in targPharse:
-        sortedString.append(Sort_Char(alphabet))
+        sortedString.append(sort_char(alphabet))
+
     return sortedString
 
-
-def Has_2_Be_Sorted():
+# Defining if there is a mutation in the character
+def has_2_be_sorted():
+    mutantion_number = 5
     number = random.randint(1,100)
-    return number <= 5
+    return number <= mutantion_number
 
-def Resort_String(targPharse, alphabet, textCopy):
+def resort_string(targPharse, alphabet, textCopy):
     newTextCopy = []
-    for j in range(len(targPharse)):
-        if textCopy[j] == targPharse[j] or not Has_2_Be_Sorted():
+    length_targPharse = len(targPharse)
+
+    for j in range(length_targPharse):
+        if textCopy[j] == targPharse[j] or not has_2_be_sorted():
             newTextCopy.append(textCopy[j])
         else:
-            newTextCopy.append(Sort_Char(alphabet))
+            newTextCopy.append(sort_char(alphabet))
+
     return newTextCopy
 
-
-def Copy_Of(text_copy, numb_copies):
+# Returns a list of copies of the chosen phrase
+def copy_of(text_copy, numb_copies):
     list_copies = []
+
     for k in range(numb_copies):
         list_copies.append(text_copy)
+
     return list_copies
 
 
-def getScore(text_Copy, targPharse):
+def get_score(text_Copy, targPharse):
     score_text = 0
-    for w in range(len(targPharse)):
+    length_targPharse = len(targPharse)
+
+    for w in range(length_targPharse):
         if text_Copy[w] == targPharse[w]:
             score_text += 1
+
     return score_text
 
 
 def printGeneration(text_Copy, generation):
     print("GENERATION {} (SCORE {}): ".format(generation,
-                                 getScore(text_Copy, text)), end="")
+          get_score(text_Copy, targ_text)), end="")
+
     for writing in text_Copy:
         print(writing, end="")
+
     print()
 
 
 def Main():
-    current_Copy = Sort_Initial_String(text, alphabet)
+    current_Copy = sort_initial_string(targ_text, alphabet)
     generation = 0
     num_generations = 100
     copies = []
-    while(getScore(current_Copy, text) < len(text)):
-        copies = Copy_Of(current_Copy, num_generations)
+
+    while(get_score(current_Copy, targ_text) < len(targ_text)):
+        copies = copy_of(current_Copy, num_generations)
 
         for copy in copies:
-            resort_Copy = Resort_String(text, alphabet, copy)
-            if(getScore(resort_Copy, text) > getScore(current_Copy,
-                                                             text)):
+            resort_Copy = resort_string(targ_text, alphabet, copy)
+            if get_score(resort_Copy, targ_text) > get_score(current_Copy,
+                targ_text):
                 current_Copy = resort_Copy
                 
-
         printGeneration(current_Copy, generation)
         generation += 1
 
