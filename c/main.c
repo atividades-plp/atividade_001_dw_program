@@ -22,7 +22,7 @@ char *text[] = {"M", "E", "T", "H", "I", "N", "K", "S", " ", "I",
 				"S", "E", "L"};
 
 // function which role is to create an initial random sentence
-sequence createSequence()
+sequence create_sequence()
 {
 	int random_number;
 	sequence tmp_sequence;
@@ -100,19 +100,19 @@ sequence get_score(sequence mut_copies[])
 int main(void)
 {
 
-	sequence current_text = createSequence();
+	sequence current_text = create_sequence();
 	current_text.score = 0;
 	int counter = 0;
 	int score = 0;
-	sequence auxText;
+	sequence aux_text;
 	srand((unsigned int)time(NULL));
 
 	// This iteration will occur until a sentence equal to the target one come up
 	while (score < 28)
 	{
-		auxText = get_score(get_copies(generate_copies(current_text), 5));
-		if (auxText.score > current_text.score)
-			current_text = auxText;
+		aux_text = get_score(get_copies(generate_copies(current_text), 5));
+		if (aux_text.score > current_text.score)
+			current_text = aux_text;
 		printf("GENERATION %d (SCORE %d): ", counter, current_text.score);
 		counter++;
 		for (int i = 0; i < 28; i++)
