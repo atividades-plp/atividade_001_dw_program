@@ -29,7 +29,7 @@ sequence create_sequence()
 
 	for (int i = 0; i < 28; i++)
 	{
-		random_number = rand() % 28;
+		random_number = rand() % 27;
 		tmp_sequence.content[i] = alphabet[random_number];
 	}
 	return tmp_sequence;
@@ -68,7 +68,9 @@ sequence *get_copies(sequence seq_copies[], int mutRate)
 		{
 			if (sampling(mutRate) == true)
 			{
-				int randNum = rand() % 42;
+				int randNum = rand() % 53;
+        if (alphabet[randNum] == NULL)
+          alphabet[randNum] = alphabet[randNum - 26 - 1];
 				seq_copies[i].content[e] = alphabet[randNum];
 			}
 		}
