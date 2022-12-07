@@ -5,6 +5,7 @@
 
 typedef char *charSq[28];
 
+//struct storing the data required for each sentence
 typedef struct
 {
 
@@ -13,15 +14,18 @@ int score;
 
 } sequence;
 
+//It is the vector which stores the symbols to create sentences
 char *symbols[] = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"
 "M", "N", "O", "P", "Q", "R", "S", 
 "T", "U","V", "W","X", "Y", "Z"};
 
+//It is the target phrase
 char *targPhrase[] = {"M", "E", "T", "H", "I", "N", "K", "S", " ", "I",
 "T", " ", "I", "S", " ", "L", "I", "K", "E", " ", "A", " ", "W", "E", "A",
 "S", "E", "L"
 };
 
+//function which role is to create an initial random sentence
 sequence createSequence()
 {
   int randNum;
@@ -36,7 +40,7 @@ sequence createSequence()
 };
 
 
-/*generator function of sequence's copies*/
+//generator function of sequence's copies
 sequence * genCopies(sequence seqce)
 {
   static sequence seqCopies[100];
@@ -51,7 +55,7 @@ sequence * genCopies(sequence seqce)
   return seqCopies;
 }
 
-/*function which use is to return, based on certain percentual rate, the occurence or not of an event*/
+//function which use is to return, based on certain percentual rate, the occurence or not of an event*/
 bool sampling(int prob)
 {
   int sample = rand() % 100;
@@ -62,7 +66,7 @@ bool sampling(int prob)
     return true;
 }
 
-/*mutation function at a rate of five percent*/
+//mutation function at a rate of five percent*/
 sequence * mutCopies(sequence seq_copies[], int mutRate)
 {
   for (int i = 0; i < 100; i++)
@@ -79,7 +83,7 @@ sequence * mutCopies(sequence seq_copies[], int mutRate)
   return seq_copies;
 }
 
-/*function which compares each sequence with the target phrase and returns the score*/
+//function which compares each sequence with the target phrase and returns the score*/
 sequence scoring(sequence mut_copies[])
 {
   sequence seq = mut_copies[0];
@@ -110,22 +114,21 @@ int main(void) {
   int score = 0;
   sequence aux_seqnc;
   srand((unsigned int) time(NULL));
-  
+
+  //This iteration will occur until a sentence equal to the target one come up
   while (score < 28)
     {
       aux_seqnc = scoring(mutCopies(genCopies(seqnc), 5));
       if (aux_seqnc.score > seqnc.score)
         seqnc = aux_seqnc;
       counter++;
-      printf("%d)", counter);
+      printf("GENERATION %d (SCORE %d): ", counter, seqnc.score);
       for (int i = 0; i < 28; i++)
     {
       printf("%s", seqnc.content[i]);
     }
-      printf("\n");
+      printf("\n\n");
       score = seqnc.score;
-      /*printf("%d\n", score);
-      printf("%d\n", aux_seqnc.score);*/
       }
   
   return 0;
